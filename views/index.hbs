@@ -56,13 +56,28 @@
 ];
  
 $(document).ready(function() {
+
+    //$.post( "/filliste", { name: "John", time: "2pm" } );
+//    $.ajax({
+//        type: "POST",
+//        data: JSON.stringify({test: "test", test2: "test2"}),
+//        contentType: 'application/json',
+//        url: "/filliste",
+//        success: (data) => {
+//            console.log("SUksess, ", JSON.stringify(data));
+//        }
+//    });
+
+
+
     $('.display').DataTable( {
-        processing : true,
-        serverSide : true,
-        ajax : {
-            url: "/filliste",
-            type: "POST"
-        }
+        "ajax" : {
+            "url": "/filliste",
+            "contentType": "application/json",
+            "type": "POST",
+            "body" : {"test":"test", "meretest":"meretest"}
+        },
+        data: JSON.stringify("data")
         
     } );
 //    $('.display').DataTable( {

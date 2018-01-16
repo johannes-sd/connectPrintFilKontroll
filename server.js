@@ -2,6 +2,7 @@ const express = require("express");
 const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
+const fs = require("fs-extra");
 
 //const buttons = require("datatables.net-buttons");
 
@@ -16,8 +17,9 @@ hbs.registerPartials(__dirname + "/views/partials");
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
-app.use(helmet());
-app.use(bodyParser.json({type: 'application/*+json'}));
+//app.use(helmet());
+app.use(bodyParser.json({type: 'application/json'}));
+
 
 // app.use((req, resp, next) => {
 //     var now = new Date().toString();
@@ -43,9 +45,27 @@ app.get('/', (req, res) => {
         });
     });
 
+app.use((req, res, next) => {
+    // If rec.param yaddayadda
+    const directory = require("./privateSettings/stier.json");
+    //console.log(directory.kildesti);
+    let sti = directory.kildesti;
+    let TESTsti = __dirname + "/testfiler";
+    async function finnesStien (f) {
+        const exists = await fs.pathExists(f)
+    }
+    if(!finnesStien(sti)) {
+        sti = TESTsti
+    }
+    console.log(sti);
+    next();
+});
+
+
 app.post("/filliste", (req, res) => {
-    console.log(req);
-    res.send({"data":"nada"});
+    console.log("------");
+    console.log(req.body);
+    res.status(200).send({"data":["a","b","c","d"]});
 });
 
 
