@@ -1,6 +1,7 @@
 const express = require("express");
 const hbs = require("hbs");
 const helmet = require("helmet");
+const bodyParser = require("body-parser");
 
 //const buttons = require("datatables.net-buttons");
 
@@ -16,6 +17,7 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 app.use(helmet());
+app.use(bodyParser.json({type: 'application/*+json'}));
 
 // app.use((req, resp, next) => {
 //     var now = new Date().toString();
@@ -42,7 +44,8 @@ app.get('/', (req, res) => {
     });
 
 app.post("/filliste", (req, res) => {
-    console.log(JSON.stringify(req, undefined, 2));
+    console.log(req);
+    res.send({"data":"nada"});
 });
 
 
