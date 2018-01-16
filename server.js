@@ -48,16 +48,16 @@ app.get('/', (req, res) => {
 app.use((req, res, next) => {
     // If rec.param yaddayadda
     const directory = require("./privateSettings/stier.json");
+    console.log(directory);
     //console.log(directory.kildesti);
     let sti = directory.kildesti;
     let TESTsti = __dirname + "/testfiler";
     async function finnesStien (f) {
-        const exists = await fs.pathExists(f)
+        const exists = await fs.pathExists(f);
+        if(!finnesStien(sti)) {
+            sti = TESTsti
+        }
     }
-    if(!finnesStien(sti)) {
-        sti = TESTsti
-    }
-    console.log(sti);
     next();
 });
 
