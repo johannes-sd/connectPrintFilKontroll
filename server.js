@@ -34,15 +34,17 @@ app.use(helmet());
 
 app.get('/', (req, res) => {
     
-    hbs.registerHelper('getCurrentYear',() => {
-        return new Date().getFullYear();
-    });
+    // hbs.registerHelper('getCurrentYear',() => {
+    //     return new Date().getFullYear();
+    // });
     res.render('index.hbs',{
-        // pageTitle: "Velkommen",
-        // velkomsttekst: "Velkommen"
-    //    setTimeout()
         });
     });
+
+app.post("filliste", (req, res) => {
+    console.log(JSON.stringify(req, undefined, 2));
+});
+
 
 app.get('/test', (req, res) => {
     res.send("Halloen");

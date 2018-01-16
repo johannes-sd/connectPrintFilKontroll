@@ -9,5 +9,6 @@
     "express": "4.16.2",
     "hbs": "4.0.1",
     "helmet": "3.9.0"
-  }
+  },
+  "repository": "https://github.com/johannes-sd/connectPrintFilKontroll.git"
 }
