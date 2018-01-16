@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
         });
     });
 
-app.post("filliste", (req, res) => {
+app.post("/filliste", (req, res) => {
     console.log(JSON.stringify(req, undefined, 2));
 });
 

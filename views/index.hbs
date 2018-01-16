@@ -48,20 +48,26 @@
 ];
  
 $(document).ready(function() {
-//    $('#example').DataTable( {
-//        "ajax": '../ajax/data/arrays.txt'
-//    } );
     $('.display').DataTable( {
-        data: dataSet,
-        columns: [
-            { title: "Name" },
-            { title: "Position" },
-            { title: "Office" },
-            { title: "Extn." },
-            { title: "Start date" },
-            { title: "Salary" }
-        ]
+        processing : true,
+        serverSide : true,
+        ajax : {
+            url: "/filliste",
+            type: "POST"
+        }
+        
     } );
+//    $('.display').DataTable( {
+//        data: dataSet,
+//        columns: [
+//            { title: "Name" },
+//            { title: "Position" },
+//            { title: "Office" },
+//            { title: "Extn." },
+//            { title: "Start date" },
+//            { title: "Salary" }
+//        ]
+//    } );
 } );
     </script>
 </html>
