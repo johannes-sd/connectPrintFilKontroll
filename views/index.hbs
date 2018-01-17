@@ -71,13 +71,14 @@ $(document).ready(function() {
 
 
     $('.display').DataTable( {
+        serverSIde: true,
         "ajax" : {
             "url": "/filliste",
             "contentType": "application/json",
-            "type": "POST",
-            "body" : {"test":"test", "meretest":"meretest"}
-        },
-        data: JSON.stringify("data")
+            "type": "POST"
+            
+        }
+        
         
     } );
 //    $('.display').DataTable( {

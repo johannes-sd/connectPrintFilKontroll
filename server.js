@@ -52,12 +52,10 @@ app.use((req, res, next) => {
     let sti = directory.kildesti;
     let TESTsti = __dirname + "/testfiler";
     async function finnesStien (f) {
-        const exists = await fs.pathExists(f)
+        const exists = await fs.pathExists(f);
+        console.log(exists);
     }
-    if(!finnesStien(sti)) {
-        sti = TESTsti
-    }
-    console.log(sti);
+    finnesStien(sti);
     next();
 });
 
@@ -65,6 +63,7 @@ app.use((req, res, next) => {
 app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
+
     res.status(200).send({"data":["a","b","c","d"]});
 });
 
