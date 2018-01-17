@@ -45,35 +45,52 @@ app.get('/', (req, res) => {
         });
     });
 
-app.use((req, res, next) => {
-    // If rec.param yaddayadda
-    const directory = require("./privateSettings/stier.json");
-    console.log(directory);
-    //console.log(directory.kildesti);
-    let sti = directory.kildesti;
-    let TESTsti = __dirname + "/testfiler";
-    async function finnesStien (f) {
-        const exists = await fs.pathExists(f);
-<<<<<<< HEAD
-        console.log(exists);
-    }
-    finnesStien(sti);
-=======
-        if(!finnesStien(sti)) {
-            sti = TESTsti
-        }
-    }
->>>>>>> 49a490b53d979ef8f68a57722e3969eb11540299
-    next();
-});
+// app.use((req, res, next) => {
+//     // If rec.param yaddayadda
+//     const directory = require("./privateSettings/stier.json");
+//     console.log(directory);
+//     //console.log(directory.kildesti);
+//     let sti = directory.kildesti;
+//     let TESTsti = __dirname + "/testfiler";
+//     async function finnesStien (f) {
+//         const exists = await fs.pathExists(f);
+//         if(!finnesStien(sti)) {
+//             sti = TESTsti
+//         }
+//     }
+//     next();
+// });
 
 
 app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
-
-    res.status(200).send({"data":["a","b","c","d"]});
+    const directory = require("./privateSettings/stier.json");
+    let sti = directory.kildesti;
+    let TESTsti = __dirname + "/testfiler";
+    async (sti_argument) => {
+        try {
+            const filer = await LesFiler(sti_argument);
+            console.log("Filer :" , filer );
+            res.status(200).send({"data": filer});
+        }
+        catch (error) {
+            res.status(500).send({"data": error});
+        }
+    }
+    //res.status(200).send({"data":["a","b","c","d"]});
 });
+
+function LesFiler(sti) {
+    console.log("Lesfiler kjører i bakgrunnen");
+    let directoryListe = fs.readdir(sti, 'utf8', (err, files) => {
+        if (err) {
+            console.log(`Feil ved opplisting av filer i ${sti}. Feil: ${err}`);
+            return (err);
+        }
+        return files;
+    });
+}
 
 
 app.get('/test', (req, res) => {
