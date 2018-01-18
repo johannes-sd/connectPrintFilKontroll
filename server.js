@@ -3,6 +3,7 @@ const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const fs = require("fs-extra");
+const path = require("path");
 
 //const buttons = require("datatables.net-buttons");
 
@@ -67,29 +68,38 @@ app.post("/filliste", (req, res) => {
     console.log(req.body);
     const directory = require("./privateSettings/stier.json");
     let sti = directory.kildesti;
-    let TESTsti = __dirname + "/testfiler";
-    async (sti_argument) => {
-        try {
-            const filer = await LesFiler(sti_argument);
-            console.log("Filer :" , filer );
-            res.status(200).send({"data": filer});
-        }
-        catch (error) {
-            res.status(500).send({"data": error});
-        }
+    let TESTsti = "./";
+    console.log("Skal hente filliste");
+
+    let resultat = async (TESTsti) => {
+        console.log("funksjonen fyrer");
+        let filer = await LesFiler(TESTsti);
+        console.log(typeof filer);
     }
-    //res.status(200).send({"data":["a","b","c","d"]});
+    let filer = resultat(TESTsti).then((err, resultat)=>{
+        console.log("filer ", resultat);
+    }
+        
+    );
+    
+    // console.log("process.cwd() ", process.cwd());
+    // let filer = LesFiler("./testfiler");
+    // console.log(typeof filer);
+    res.status(200).send({"noe": ["n","oe"]});
+
 });
 
 function LesFiler(sti) {
     console.log("Lesfiler kjører i bakgrunnen");
-    let directoryListe = fs.readdir(sti, 'utf8', (err, files) => {
+    let directoryListe = fs.readdir(sti, (err, files) => {
         if (err) {
             console.log(`Feil ved opplisting av filer i ${sti}. Feil: ${err}`);
             return (err);
         }
+        console.log("Files i funksjonen ", files);
         return files;
     });
+    return directoryListe;
 }
 
 
