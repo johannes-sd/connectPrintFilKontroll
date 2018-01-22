@@ -7,8 +7,6 @@ const path = require("path");
 
 //const buttons = require("datatables.net-buttons");
 
-
-
 const port = process.env.PORT || 8081;
 let app = express();
 
@@ -18,90 +16,36 @@ hbs.registerPartials(__dirname + "/views/partials");
 app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
-//app.use(helmet());
+app.use(helmet());
 app.use(bodyParser.json({type: 'application/json'}));
-
-
-// app.use((req, resp, next) => {
-//     var now = new Date().toString();
-//     var log = `${now}: ${req.method} ${req.url}`;
-//     console.log(log);
-//     fs.appendFile('server.log' , log + "\n", (err) => {
-//         if(err){
-//             console.log("Problemer med å skrive til logg");
-//         }
-//     });
-//         next();
-    
-// });
-
-
 
 app.get('/', (req, res) => {
     
-    // hbs.registerHelper('getCurrentYear',() => {
-    //     return new Date().getFullYear();
-    // });
     res.render('index.hbs',{
         });
     });
-
-// app.use((req, res, next) => {
-//     // If rec.param yaddayadda
-//     const directory = require("./privateSettings/stier.json");
-//     console.log(directory);
-//     //console.log(directory.kildesti);
-//     let sti = directory.kildesti;
-//     let TESTsti = __dirname + "/testfiler";
-//     async function finnesStien (f) {
-//         const exists = await fs.pathExists(f);
-//         if(!finnesStien(sti)) {
-//             sti = TESTsti
-//         }
-//     }
-//     next();
-// });
-
 
 app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
     const directory = require("./privateSettings/stier.json");
     let sti = directory.kildesti;
-    let TESTsti = "./";
+    let TESTsti = "./testfiler";
     console.log("Skal hente filliste");
 
-    let resultat = async (TESTsti) => {
-        console.log("funksjonen fyrer");
-        let filer = await LesFiler(TESTsti);
-        console.log(typeof filer);
+    let filerIdir = async (callback) => {
+        await fs.readdir(TESTsti, (err, resultat) => {
+            callback(resultat);
+        });
     }
-    let filer = resultat(TESTsti).then((err, resultat)=>{
-        console.log("filer ", resultat);
-    }
-        
-    );
-    
-    // console.log("process.cwd() ", process.cwd());
-    // let filer = LesFiler("./testfiler");
-    // console.log(typeof filer);
-    res.status(200).send({"noe": ["n","oe"]});
-
-});
-
-function LesFiler(sti) {
-    console.log("Lesfiler kjører i bakgrunnen");
-    let directoryListe = fs.readdir(sti, (err, files) => {
-        if (err) {
-            console.log(`Feil ved opplisting av filer i ${sti}. Feil: ${err}`);
-            return (err);
-        }
-        console.log("Files i funksjonen ", files);
-        return files;
+    filerIdir(resultat => {
+        let filObjekt = JSON.stringify({
+            "data" : resultat
+        }, undefined, 2);
+        console.log("resultat ", filObjekt);
+        res.status(200).send(filObjekt);
     });
-    return directoryListe;
-}
-
+});
 
 app.get('/test', (req, res) => {
     res.send("Halloen");
