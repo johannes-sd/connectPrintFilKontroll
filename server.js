@@ -39,10 +39,9 @@ app.post("/filliste", (req, res) => {
         });
     }
     filerIdir(resultat => {
-        let filObjekt = JSON.stringify({
-            "data" : resultat
-        }, undefined, 2);
-        console.log("resultat ", filObjekt);
+        let filObjekt = {};
+        filObjekt.data = resultat.replace("'" , "\"");
+        console.log("resultat ",  filObjekt);
         res.status(200).send(filObjekt);
     });
 });
