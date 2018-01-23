@@ -7,16 +7,20 @@
                 <thead>
                     <tr>
                         <th>
-                            test
+                            Connect-filer
                         </th>
                     </tr>
                 </thead>
             </table>
         </div>
 
-    </body>
-    <script>
+    {{> printModal}}
 
+
+    </body>
+    {{> printModalScript}}
+    <script>
+    
  
 $(document).ready(function() {
 
@@ -26,7 +30,8 @@ $(document).ready(function() {
             "contentType": "application/json",
             "type": "POST"
         },
-        "columns" : [{"data" : null}]
+        "columns" : [{"data" : null}],
+        "select" : "os"
         
         
         

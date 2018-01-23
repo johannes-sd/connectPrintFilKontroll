@@ -1,0 +1,41 @@
+  <div id="dialog-form" title="Printpanel">
+    <p class="validateTips">Husk å dobbeltsjekke valgene før print.</p>
+   
+    <form>
+      <fieldset>
+        <label for="name">Printer</label>
+        <input type="text" name="name" id="name" value="RIO" class="text ui-widget-content ui-corner-all"><br>
+        <label for="email">Direkteprint</label>
+        <input type="text" name="email" id="email" value="X" class="text ui-widget-content ui-corner-all"><br>
+        <label for="password">Print scanneliste</label>
+        <input type="password" name="password" id="password" value="X" class="text ui-widget-content ui-corner-all"><br>
+   
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
+   
+   
+  <!-- <div id="users-contain" class="ui-widget">
+    <h1>Existing Users:</h1>
+    <table id="users" class="ui-widget ui-widget-content">
+      <thead>
+        <tr class="ui-widget-header ">
+          <th>Name</th>
+          <th>Email</th>
+          <th>Password</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John Doe</td>
+          <td>john.doe@example.com</td>
+          <td>johndoe1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+  <div id="users-contain" class="ui-widget">
+  <button id="create-user">Printdialog</button>
+</div>
