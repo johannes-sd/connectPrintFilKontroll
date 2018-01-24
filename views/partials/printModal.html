@@ -4,11 +4,17 @@
     <form>
       <fieldset>
         <label for="name">Printer</label>
-        <input type="text" name="name" id="name" value="RIO" class="text ui-widget-content ui-corner-all"><br>
-        <label for="email">Direkteprint</label>
-        <input type="text" name="email" id="email" value="X" class="text ui-widget-content ui-corner-all"><br>
-        <label for="password">Print scanneliste</label>
-        <input type="password" name="password" id="password" value="X" class="text ui-widget-content ui-corner-all"><br>
+        <!--<input type="text" name="name" id="name" value="RIO" class="text ui-widget-content ui-corner-all"><br>-->
+        <select name="Printere" id="printere">
+          <option value="volvo">RIO</option>
+          <option value="saab">Canberra</option>
+        </select>
+        <br>
+        <label for="email">direkteprint</label>
+        <input type="radio" name="direkteprint" value="direkteprint" unchecked><br>
+        <!--<input type="text" name="email" id="email" value="X" class="text ui-widget-content ui-corner-all"><br>-->
+        <label for="scanneliste">Print scanneliste</label>
+        <button name="scanneliste" id="scanneliste" > >Klikk her< <br>
    
         <!-- Allow form submission with keyboard without duplicating the dialog button -->
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
