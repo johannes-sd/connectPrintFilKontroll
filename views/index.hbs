@@ -24,7 +24,7 @@
  
 $(document).ready(function() {
 
-    $('.display').DataTable( {
+    let tabell = $('.display').DataTable( {
         "ajax" : {
             "url": "/filliste",
             "contentType": "application/json",
@@ -32,10 +32,24 @@ $(document).ready(function() {
         },
         "columns" : [{"data" : null}],
         "select" : "os"
-        
-        
-        
     });
+
+    $('.display table').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+            console.log($(this));
+        }
+        else {
+            tabell.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            console.log($(this));
+        }
+    });
+
+    $( "#scanneliste" ).click(function() {
+        alert( "Handler for .click() called.");
+        console.log(tabell.rows('.selected').data() );
+      });
 });
     </script>
 </html>

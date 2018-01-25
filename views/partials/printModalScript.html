@@ -3,16 +3,14 @@ $( function() {
     var dialog, form,
  
       // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      //emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
       // name = $( "#name" ),
       // email = $( "#email" ),
       // password = $( "#password" ),
       // allFields = $( [] ).add( name ).add( email ).add( password ),
       tips = $( ".validateTips" );
  
-      $( "#scanneliste" ).click(function() {
-        alert( "Handler for .click() called." );
-      });
+
 
     // function updateTips( t ) {
     //   tips
@@ -56,7 +54,7 @@ $( function() {
  
     dialog = $( "#dialog-form" ).dialog({
       autoOpen: false,
-      height: 400,
+      height: 300,
       width: 350,
       modal: true,
       buttons: {
@@ -71,13 +69,18 @@ $( function() {
       }
     });
  
-    form = dialog.find( "form" ).on( "submit", function( event ) {
-      event.preventDefault();
-      addUser();
-    });
+    // form = dialog.find( "form" ).on( "submit", function( event ) {
+    //   event.preventDefault();
+    //   alert("submit er fyrt av");
+    // });
  
-    $( "#create-user" ).button().on( "click", function() {
+    $( "#printdialog" ).button().on( "click", function() {
       dialog.dialog( "open" );
     });
+
+
   } );
+
+  
+
 </script>
