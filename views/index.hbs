@@ -34,6 +34,7 @@ $(document).ready(function() {
         "select" : "os"
     });
 
+    //Markere valgte elementer
     $('.display table').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -46,10 +47,17 @@ $(document).ready(function() {
         }
     });
 
+    //Tester knapp for print.
     $( "#scanneliste" ).click(function() {
         alert( "Handler for .click() called.");
-        console.log(tabell.rows('.selected').data() );
+        var noedata = tabell.rows({selected: true}).data().toArray();  //Innebygd API for håndtering av rows.
+        console.log(JSON.stringify(noedata, undefined, 2));
       });
+
+    dialog.button().on( "click", function() {
+      alert("Prindialogknapp knappet");
+    });
+
 });
     </script>
 </html>

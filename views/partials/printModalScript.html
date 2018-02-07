@@ -43,13 +43,11 @@ $( function() {
     // }
  
     function sendTilUtskrift() {
-      var valid = true;
       
       // SJEKKE OM VALGT SAMMENSETNING AV FILER ER OK
-      
+      alert("Knappeknapp trykket");
 
 
-      return valid;
     }
  
     dialog = $( "#dialog-form" ).dialog({
@@ -59,7 +57,7 @@ $( function() {
       modal: true,
       buttons: {
         "Send til utskrift": sendTilUtskrift,
-        Cancel: function() {
+        Cancel: () => {
           dialog.dialog( "close" );
         }
       },
@@ -81,6 +79,5 @@ $( function() {
 
   } );
 
-  
 
 </script>
