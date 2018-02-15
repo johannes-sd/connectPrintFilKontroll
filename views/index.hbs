@@ -18,13 +18,13 @@
 
 
     </body>
-    {{> printModalScript}}
+    <!--{{> printModalScript}}-->
     <script>
     
  
 $(document).ready(function() {
 
-    let tabell = $('.display').DataTable( {
+    var tabell = $('.display').DataTable( {
         "ajax" : {
             "url": "/filliste",
             "contentType": "application/json",
@@ -54,10 +54,10 @@ $(document).ready(function() {
         console.log(JSON.stringify(noedata, undefined, 2));
       });
 
-    dialog.button().on( "click", function() {
-      alert("Prindialogknapp knappet");
-    });
+
 
 });
+    
     </script>
+    {{> printModalScript}}
 </html>

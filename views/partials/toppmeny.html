@@ -8,9 +8,26 @@
     
         <nav>
             <ul class="hodeNav">
-                <li id="mny-SDkravfiler">
-                    <a href="/test">Filbehandling</a>
+               
+                <li id="mny-printer" class="li-menyelementer">
+                    Direkteprint
+                    <input type="radio" class="ui-widget" name="direkteprint" value="direkteprint" unchecked />
+                </li>
+                <li id="mny-printer" class="li-menyelementer">
+                        <label for="name" class="ui-widget">Printer</label>
+                        <!--<input type="text" name="name" id="name" value="RIO" class="text ui-widget-content ui-corner-all"><br>-->
+                        <select name="Printere" id="printere" class="ui-widget">
+                          <option value="rio">RIO</option>
+                          <option value="canberra">Canberra</option>
+                        </select>
+                </li>
+                <li id="mny-utskrift" class="li-menyelementer">
+                   
+                        <button id="SKIFTMEG" class="ui-widget">PRINT</button>
+                        
                 </li>
             </ul>
+
+            
         </nav>
     </header>
