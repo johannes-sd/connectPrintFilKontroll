@@ -3,6 +3,8 @@
     {{> toppmeny}}
 
         <div id="Velkommen">
+                
+                
             <table class="display">
                 <thead>
                     <tr>
@@ -32,7 +34,26 @@ $(document).ready(function() {
         },
         "columns" : [{"data" : null}],
         "select" : "os"
+
     });
+
+    new $.fn.dataTable.Buttons( tabell, {
+        name: "commands",
+        buttons: [{
+            text: "Print",
+            action: (e, dt, node, config) => {
+                alert("Printe printe printe");
+            }
+        },{
+            text: "Print scannelister",
+            action: (e, dt, node, config) => {
+                //alert("Knappeliknapp er trykket");
+                sendScanneliste();
+            }
+        }]
+    });
+
+    tabell.buttons(0, null).container().appendTo('nav');
 
     //Markere valgte elementer
     $('.display table').on( 'click', 'tr', function () {
@@ -46,6 +67,13 @@ $(document).ready(function() {
             console.log($(this));
         }
     });
+
+    function sendScanneliste() {
+        let valgteElementer = tabell.rows({selected: true}).data().toArray();
+        console.log(valgteElementer);
+    };
+
+
 
     //Tester knapp for print.
     $( "#scanneliste" ).click(function() {
