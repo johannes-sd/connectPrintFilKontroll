@@ -18,7 +18,7 @@ body {
 
 nav {
   background-color: #fff;
-  border: 1px solid #dedede; /*Border og width brukt sammen kan skape trøbbel*/
+  border: 1px solid #070707; /*Border og width brukt sammen kan skape trøbbel*/
   border-radius: 4px;
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
   color: #888;
@@ -26,6 +26,7 @@ nav {
   margin-bottom: 10px;
   overflow: hidden;
   width: 100%; 
+ 
 }
 
 nav ul {
@@ -203,6 +204,27 @@ nav > ul > li > div ul > li:hover > a {
     .bold {
       font-weight: bold;
     }
+    
+#Velkommen {
+      background-color: white;
+      border: 1px solid #070707;
+      padding: 0%;
+      padding-top: 5%;
+      border-radius: 4px;
+  }
+
+.ui-widget  {
+  vertical-align: -webkit-baseline-middle;
+  vertical-align: text-bottom;
+}
+#printere {
+  vertical-align: -webkit-baseline-middle;
+}
+input[type="radio"] {
+  margin-top: -1px;
+  vertical-align: middle;
+}
+
 /*#dialogForm {*/
 /*	margin:0px auto;*/
 /*	width:500px;*/

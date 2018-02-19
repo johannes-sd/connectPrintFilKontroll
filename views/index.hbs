@@ -42,7 +42,26 @@ $(document).ready(function() {
         buttons: [{
             text: "Print",
             action: (e, dt, node, config) => {
-                alert("Printe printe printe");
+                let valgteElementer = tabell.rows({selected: true}).data().toArray();
+                let printer = $("nav select#printere otpion:selected").val();
+                alert("Printer er ", printer);
+                $.ajax({
+                    async : true,
+                    "crossDomain": false,
+                    url: "/printe",
+                    method: "POST",
+                        "headers": {
+                        "content-type": "application/json",
+                        "cache-control": "no-cache",
+                        "sentraldistribusjon-token": "0e6f12f6-c483-6df3-2d3a-5b6816b30638"
+                      },
+                    processData : false,
+                    dataType : 'json',
+                    data : JSON.stringify(valgteElementer),
+                    success: (res) =>{
+                        console.log("RES :", res);
+                    }
+                })
             }
         },{
             text: "Print scannelister",
@@ -70,7 +89,13 @@ $(document).ready(function() {
 
     function sendScanneliste() {
         let valgteElementer = tabell.rows({selected: true}).data().toArray();
+        if(valgteElementer.length === 0) {
+            alert("Du har ikke valgt noen filer fra listen!");
+            return;
+        }
+        else {
         console.log(valgteElementer);
+        }
     };
 
 

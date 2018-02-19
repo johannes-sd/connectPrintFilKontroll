@@ -53,6 +53,13 @@ app.get('/test', (req, res) => {
     res.send("Halloen");
 });
 
+app.post("/printe", (req,res) => {
+    console.log(req.body);
+    let mottatt = req.body;
+    res.status(200).send(JSON.stringify(mottatt));
+})
+
+
 app.listen(port, () => {
     console.log(`Serveren startet på port ${port}`);
 }); 
