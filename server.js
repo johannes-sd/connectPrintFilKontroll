@@ -39,10 +39,14 @@ app.post("/filliste", (req, res) => {
         });
     }
 
+    const fildiffernesiator = require("./privateSettings/fildifferentsiatorer.json");
+    console.log(fildiffernesiator);
+
     filerIdir(resultat => {
         let raafilObjekt = {
-            "data" : resultat
-        };
+            "data" : resultat,
+            "differentsiatorer" : fildiffernesiator
+        }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
         let filObjekt = JSON.stringify(raafilObjekt);
         //console.log("resultat ",  filObjekt);
         res.status(200).send(filObjekt);

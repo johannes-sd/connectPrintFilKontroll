@@ -33,18 +33,25 @@ $(document).ready(function() {
             "type": "POST"
         },
         "columns" : [{"data" : null}],
+        "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
 
     });
-
+    console.log(tabell.select);
+    console.log("option ", $("select#printere.ui-widget option:selected").text());
+    const printer = $("select#printere.ui-widget option:selected").text();
     new $.fn.dataTable.Buttons( tabell, {
         name: "commands",
         buttons: [{
             text: "Print",
             action: (e, dt, node, config) => {
-                let valgteElementer = tabell.rows({selected: true}).data().toArray();
-                let printer = $("nav select#printere otpion:selected").val();
-                alert("Printer er ", printer);
+                //let valgteElementer = tabell.rows({selected: true}).data().toArray();
+                let valgteElementer = {
+                    filer : tabell.rows({selected: true}).data().toArray(),
+                    printer
+                    };
+                
+                console.log(JSON.stringify(valgteElementer, undefined, 2));
                 $.ajax({
                     async : true,
                     "crossDomain": false,
@@ -97,8 +104,6 @@ $(document).ready(function() {
         console.log(valgteElementer);
         }
     };
-
-
 
     //Tester knapp for print.
     $( "#scanneliste" ).click(function() {
