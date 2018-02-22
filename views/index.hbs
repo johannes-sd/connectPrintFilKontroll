@@ -26,6 +26,26 @@
  
 $(document).ready(function() {
 
+    const fildifferentsiatorer = $.ajax({
+    async : true,
+    "crossDomain": false,
+    url: "/fildifferentsiator",
+    method: "POST",
+        "headers": {
+        "content-type": "application/json",
+        "cache-control": "no-cache",
+        "sentraldistribusjon-token": "0e6f12f6-c483-6df3-2d3a-5b6816b30638"
+      },
+    processData : false,
+    dataType : 'json',
+    //data : JSON.stringify(valgteElementer),
+    success: (res) =>{
+        console.log("RES :", res);
+    }
+    });
+
+    console.log("AJAXHENTING: " + fildifferentsiatorer);
+
     var tabell = $('.display').DataTable( {
         "ajax" : {
             "url": "/filliste",

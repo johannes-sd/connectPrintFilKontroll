@@ -39,13 +39,9 @@ app.post("/filliste", (req, res) => {
         });
     }
 
-    const fildiffernesiator = require("./privateSettings/fildifferentsiatorer.json");
-    console.log(fildiffernesiator);
-
     filerIdir(resultat => {
         let raafilObjekt = {
-            "data" : resultat,
-            "differentsiatorer" : fildiffernesiator
+            "data" : resultat
         }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
         let filObjekt = JSON.stringify(raafilObjekt);
         //console.log("resultat ",  filObjekt);
@@ -63,6 +59,17 @@ app.post("/printe", (req,res) => {
     res.status(200).send(JSON.stringify(mottatt));
 })
 
+app.post("/fildifferentsiator", (req, res) => {
+    //This route passes some private settings to the client.
+        const fildiffernesiator = require("./privateSettings/fildifferentsiatorer.json");
+        console.log(Object.keys(fildiffernesiator).length);    
+        if (typeof fildiffernesiator === "object" && Object.keys(fildiffernesiator).length > 0){
+            res.status(200).send(fildiffernesiator);
+        } else {
+            res.status(500).send();
+        }
+    
+});
 
 app.listen(port, () => {
     console.log(`Serveren startet på port ${port}`);
