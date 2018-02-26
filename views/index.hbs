@@ -26,6 +26,9 @@
  
 $(document).ready(function() {
 
+    function sorterFilerPaaType (fil){
+
+    //Henter objekt med fildata fra serveren her:
     const fildifferentsiatorer = $.ajax({
     async : true,
     "crossDomain": false,
@@ -38,13 +41,20 @@ $(document).ready(function() {
       },
     processData : false,
     dataType : 'json',
-    //data : JSON.stringify(valgteElementer),
     success: (res) =>{
-        console.log("RES :", res);
+        return res;
     }
     });
 
-    console.log("AJAXHENTING: " + fildifferentsiatorer);
+    fildifferentsiatorer.done(()=>{
+        console.log("Differ " + JSON.stringify(fildifferentsiatorer.responseJSON) + " differEND");
+        //All sortering og manipulering skjer her:
+    });
+
+    }; // SLUTT function sorterFilerPaaType (
+
+
+    
 
     var tabell = $('.display').DataTable( {
         "ajax" : {
