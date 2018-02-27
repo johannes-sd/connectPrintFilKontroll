@@ -19,21 +19,17 @@ const fs = require("fs");
 
 const testfile = "./testfiler/EEGSFKRY_01__90537_20170829163250_456.txt";
 
-
-let theFileContents = async (callback) => {
-    let filecontents = fs.readFile(testfile, "latin1", (err, data) => {
-        if (err) return err;
+async function theFileContents (callback) {
+    await fs.readFile(testfile, "latin1", (err, data) => {
+        if (err) callback(err);
         callback(data);
      });
-    callback(filecontents);
-}
+    
+};
 
-theFileContents(result => {
-    const antall = occurrences(result, "DS1");
+theFileContents( async (result) => {
+    const antall =  await occurrences(result, "DS1");
     console.log(antall);
-}).then((test) => {
-    const annetAntall = occurrences(test, "DS1");
-    console.log("annet Antall ", annetAntall);
 });
 
 
