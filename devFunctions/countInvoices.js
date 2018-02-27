@@ -20,23 +20,22 @@ const fs = require("fs");
 const testfile = "./testfiler/EEGSFKRY_01__90537_20170829163250_456.txt";
 
 
-let content;
 let theFileContents = async (callback) => {
-    await fs.readFile(testfile, "latin1", (err, data) => {
+    let filecontents = fs.readFile(testfile, "latin1", (err, data) => {
         if (err) return err;
-        //console.log("buffer ",buffer);
-        content = data;
-        //console.log(content);
-        callback(content);
-    });
-    callback(data);
+        callback(data);
+     });
+    callback(filecontents);
 }
 
 theFileContents(result => {
     const antall = occurrences(result, "DS1");
-    delete(result);
-    console.log("result ", antall);
+    console.log(antall);
+}).then((test) => {
+    const annetAntall = occurrences(test, "DS1");
+    console.log("annet Antall ", annetAntall);
 });
+
 
 /** Function that count occurrences of a substring in a string;
  * @param {String} string               The string
