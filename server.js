@@ -39,6 +39,8 @@ app.post("/filliste", (req, res) => {
         });
     }
 
+    
+
     filerIdir(resultat => {
         let raafilObjekt = {
             "data" : resultat
