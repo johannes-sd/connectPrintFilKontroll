@@ -62,10 +62,13 @@ $(document).ready(function() {
             "contentType": "application/json",
             "type": "POST"
         },
-        "columns" : [{"data" : null}],
+        //"columns" : [{"data" : null}],
+        "columns" : [
+            {"data" : "filnavn" },
+            {"data" : "antallSider" }    
+        ],
         "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
-
     });
     console.log(tabell.select);
     console.log("option ", $("select#printere.ui-widget option:selected").text());
