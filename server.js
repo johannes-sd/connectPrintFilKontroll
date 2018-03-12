@@ -69,15 +69,40 @@ app.post("/filliste", (req, res) => {
         
         //let filObjekt = JSON.stringify(raafilObjekt);
         let filObjekt = JSON.stringify(ResultatMedSider);
-        console.log(filObjekt);
+        //console.log(filObjekt);
         res.status(200).send(filObjekt);
         //res.status(200).send(JSON.stringify(ResultatMedSider));
     });
 });
 
 function tellPosterIfil (fil) {
+
+    // let filerIdir = async (callback) => {
+    //     await fs.readdir(TESTsti, (err, resultat) => {
+    //         callback(resultat);
+    //     });
+    // }
+
+    function readContent(callback) {
+        fs.readFile("./testfiler/" + fil, 'utf8', (err, content) => {
+            if (err) return callback(err);
+            callback(null, content);
+        });
+    }
     
-    return 0;
+    let antall = readContent((err,content) => {
+        console.log(content);
+        return content;
+    });
+
+
+    // let antall = fs.readFile("./testfiler/" + fil , 'utf8', (err, data) => {
+    //     if(err) return("Fikk ikke tak i antallet");
+    //     return "noe";
+    // });
+    //var count = (temp.match(/is/g) || []).length;
+    console.log(antall);
+    return 10000;
 }
 
 

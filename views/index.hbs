@@ -9,7 +9,10 @@
                 <thead>
                     <tr>
                         <th>
-                            Connect-filer
+                            filnavn
+                        </th>
+                        <th>
+                            antallSider
                         </th>
                     </tr>
                 </thead>
@@ -62,11 +65,11 @@ $(document).ready(function() {
             "contentType": "application/json",
             "type": "POST"
         },
-        //"columns" : [{"data" : null}],
-        "columns" : [
-            {"data" : "filnavn" },
-            {"data" : "antallSider" }    
-        ],
+        "columns" : [{"data" : "filnavn"}, {"data" : "antallSider"}],
+        //"columns" : [
+        //    {"data" : "filnavn" },
+        //    {"data" : "antallSider" }    
+        //],
         "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
     });
