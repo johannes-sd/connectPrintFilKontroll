@@ -83,26 +83,15 @@ function tellPosterIfil (fil) {
     //     });
     // }
 
-    function readContent(callback) {
-        fs.readFile("./testfiler/" + fil, 'utf8', (err, content) => {
-            if (err) return callback(err);
-            callback(null, content);
-        });
-    }
-    
-    let antall = readContent((err,content) => {
-        console.log(content);
-        return content;
-    });
-
-
-    // let antall = fs.readFile("./testfiler/" + fil , 'utf8', (err, data) => {
-    //     if(err) return("Fikk ikke tak i antallet");
-    //     return "noe";
-    // });
-    //var count = (temp.match(/is/g) || []).length;
-    console.log(antall);
-    return 10000;
+    let contents = fs.readFileSync("./testfiler/" + fil, 'utf8', (err, content) => {
+                        if (err) return err;
+                        return content;
+                    });
+    //var count = (contents.match(/EHMHSP/g) || []).length;
+    let expr = new RegExp(/^..1/, 'mg');
+    let count = (contents.match(expr) || []).length;
+    console.log(count);
+    return count;
 }
 
 
