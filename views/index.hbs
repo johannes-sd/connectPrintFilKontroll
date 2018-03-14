@@ -12,7 +12,7 @@
                             filnavn
                         </th>
                         <th>
-                            antallSider
+                            antallFakturaer
                         </th>
                     </tr>
                 </thead>
@@ -56,20 +56,13 @@ $(document).ready(function() {
 
     }; // SLUTT function sorterFilerPaaType (
 
-
-    
-
     var tabell = $('.display').DataTable( {
         "ajax" : {
             "url": "/filliste",
             "contentType": "application/json",
             "type": "POST"
         },
-        "columns" : [{"data" : "filnavn"}, {"data" : "antallSider"}],
-        //"columns" : [
-        //    {"data" : "filnavn" },
-        //    {"data" : "antallSider" }    
-        //],
+        "columns" : [{"data" : "filnavn"}, {"data" : "antallFakturaer"}],
         "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
     });
@@ -121,7 +114,7 @@ $(document).ready(function() {
     $('.display table').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
-            console.log($(this));
+            console.log("DENNE FUNKSJONEN" + $(this));
         }
         else {
             tabell.$('tr.selected').removeClass('selected');
@@ -147,8 +140,6 @@ $(document).ready(function() {
         var noedata = tabell.rows({selected: true}).data().toArray();  //Innebygd API for håndtering av rows.
         console.log(JSON.stringify(noedata, undefined, 2));
       });
-
-
 
 });
     

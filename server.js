@@ -56,7 +56,7 @@ app.post("/filliste", (req, res) => {
         for (i=0;i<resultat.length;i++) {
             interntObject.push({
                 "filnavn" : resultat[i],
-                "antallSider" : String(tellPosterIfil(resultat[i]))
+                "antallFakturaer" : String(tellPosterIfil(resultat[i]))
             });
             
         }
