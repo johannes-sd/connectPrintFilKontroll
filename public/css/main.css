@@ -148,7 +148,9 @@ nav > ul > li > div ul > li:hover > a {
 /*  align-self: stretch;*/
 /*}*/
 
-#brukernavn {
+#appnavn {
+  font-family: 'Italianno', cursive;
+  font-size : 15px;
   float: right;
   line-height: 85px;
   vertical-align: text-bottom;

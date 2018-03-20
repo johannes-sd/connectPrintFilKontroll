@@ -1,3 +1,5 @@
+
+
 const express = require("express");
 const hbs = require("hbs");
 const helmet = require("helmet");
@@ -5,8 +7,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs-extra");
 const path = require("path");
 
-const userName = process.env['USERPROFILE'].split(path.sep)[2];
-console.log(userName);
+
 
 //const buttons = require("datatables.net-buttons");
 
@@ -52,7 +53,7 @@ app.post("/filliste", (req, res) => {
             "draw" : 1,
             "recordsTotal" : resultat.length,
             "recordsFiltered" : resultat.length,
-            "data" : []
+            "data" : [],
         }
         let i;
         let interntObject = [];
@@ -64,12 +65,13 @@ app.post("/filliste", (req, res) => {
             
         }
         ResultatMedSider.data = interntObject;
+
         //console.log(ResultatMedSider);
 
-        let raafilObjekt = {
-            userName,
-            "data" : resultat
-        }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
+        // let raafilObjekt = {
+        //     userName,
+        //     "data" : resultat
+        // }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
         
         //let filObjekt = JSON.stringify(raafilObjekt);
         let filObjekt = JSON.stringify(ResultatMedSider);
@@ -104,12 +106,21 @@ app.get('/test', (req, res) => {
 });
 
 app.post("/printe", (req,res) => {
+    let filutvidelse;
     console.log(req.body);
     let mottatt = req.body;
+    if(mottatt.direkteprint) { 
+        filutvidelse = ".direkteprint"; 
+        } else {
+            filutvidelse = `.${mottatt.printer}`;
+        }
+    console.log(req.connection.remoteAddress);
     res.status(200).send(JSON.stringify(mottatt));
-})
+});
 
-app.post("/fildifferentsiator", (req, res) => {
+
+
+app.get("/fildifferentsiator", (req, res) => {
     //This route passes some private settings to the client.
         const fildiffernesiator = require("./privateSettings/fildifferentsiatorer.json");
         console.log(Object.keys(fildiffernesiator).length);    
@@ -120,6 +131,8 @@ app.post("/fildifferentsiator", (req, res) => {
         }
     
 });
+
+
 
 app.listen(port, () => {
     console.log(`Serveren startet på port ${port}`);

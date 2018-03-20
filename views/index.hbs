@@ -36,7 +36,7 @@ $(document).ready(function() {
     async : true,
     "crossDomain": false,
     url: "/fildifferentsiator",
-    method: "POST",
+    method: "GET",
         "headers": {
         "content-type": "application/json",
         "cache-control": "no-cache",
@@ -56,6 +56,9 @@ $(document).ready(function() {
 
     }; // SLUTT function sorterFilerPaaType (
     
+
+    sorterFilerPaaType();
+
     $("body").css("-webkit-filter","blur(1px)");
     var tabell = $('.display').DataTable( {
         "ajax" : {
@@ -64,13 +67,14 @@ $(document).ready(function() {
             "type": "POST"
         },
         "columns" : [{"data" : "filnavn"}, {"data" : "antallFakturaer"}],
-        "brukernavn" : "userName",
         "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
     });
     $("body").css("-webkit-filter","blur(0px)");
-    console.log("Brukernavn ", tabell.brukernavn);
-    console.log(tabell.select);
+
+
+
+    
     console.log("option ", $("select#printere.ui-widget option:selected").text());
     const printer = $("select#printere.ui-widget option:selected").text();
     var direkteprint = false;
