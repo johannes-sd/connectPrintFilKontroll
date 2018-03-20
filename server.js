@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs-extra");
 const path = require("path");
 
-var userName = process.env['USERPROFILE'].split(path.sep)[2];
+const userName = process.env['USERPROFILE'].split(path.sep)[2];
 console.log(userName);
 
 //const buttons = require("datatables.net-buttons");
@@ -67,6 +67,7 @@ app.post("/filliste", (req, res) => {
         //console.log(ResultatMedSider);
 
         let raafilObjekt = {
+            userName,
             "data" : resultat
         }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
         
@@ -93,7 +94,7 @@ function tellPosterIfil (fil) {
     //var count = (contents.match(/EHMHSP/g) || []).length;
     let expr = new RegExp(/^..1/, 'mg');
     let count = (contents.match(expr) || []).length;
-    console.log(count);
+    // console.log(count);
     return count;
 }
 
