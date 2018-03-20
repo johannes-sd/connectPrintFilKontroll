@@ -148,14 +148,19 @@ nav > ul > li > div ul > li:hover > a {
 /*  align-self: stretch;*/
 /*}*/
 
-#logo  {
-    line-height: 70px;
-    text-align:right;
-    padding-right:10%;
-    overflow:hidden;
+#brukernavn {
+  float: right;
+  line-height: 85px;
+  vertical-align: text-bottom;
+  padding-right:2%;
 }
-#logo > h1 { 
 
+#logo > h1   { 
+    float: right;
+    line-height: 70px;
+    /* text-align:right; */
+    padding-right:2%;
+    overflow:hidden;
     color: black;
     font-weight: 300;
     right: 0;

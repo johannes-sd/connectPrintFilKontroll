@@ -28,7 +28,7 @@
     
  
 $(document).ready(function() {
-
+    
     function sorterFilerPaaType (fil){
 
     //Henter objekt med fildata fra serveren her:
@@ -48,14 +48,15 @@ $(document).ready(function() {
         return res;
     }
     });
-
+    
     fildifferentsiatorer.done(()=>{
         console.log("Differ " + JSON.stringify(fildifferentsiatorer.responseJSON) + " differEND");
         //All sortering og manipulering skjer her:
     });
 
     }; // SLUTT function sorterFilerPaaType (
-
+    
+    $("body").css("-webkit-filter","blur(1px)");
     var tabell = $('.display').DataTable( {
         "ajax" : {
             "url": "/filliste",
@@ -66,16 +67,21 @@ $(document).ready(function() {
         "filtyper" : [{"differentsiatorer" : null}],
         "select" : "os"
     });
+    $("body").css("-webkit-filter","blur(0px)");
     console.log(tabell.select);
     console.log("option ", $("select#printere.ui-widget option:selected").text());
     const printer = $("select#printere.ui-widget option:selected").text();
-    const direkteprint = false;
+    var direkteprint = false;
 
-    //FÅ DENNE TIL Å VIRKE
-    if ($("[name='direkteprint']").is(':checked') ){ direkteprint = true }; //$("#radio_1").prop("checked", true);
-   
-   
-   
+
+    $("#direkteprint").change( function () {
+        //TODO: sjekke om filtypen er direkteprintvennlig. Så gjøre action om ikke
+        if (this.checked) {
+            direkteprint = true;
+        } else {
+            direkteprint = false;
+        }
+    });
    
     new $.fn.dataTable.Buttons( tabell, {
         name: "commands",

@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 const fs = require("fs-extra");
 const path = require("path");
 
+var userName = process.env['USERPROFILE'].split(path.sep)[2];
+console.log(userName);
+
 //const buttons = require("datatables.net-buttons");
 
 const port = process.env.PORT || 8081;
