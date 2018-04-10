@@ -120,12 +120,12 @@ app.post("/printe", (req,res) => {
 
 
 
-app.get("/fildifferentsiator", (req, res) => {
+app.get("/fildifferentsiatorer", (req, res) => {
     //This route passes some private settings to the client.
         const fildiffernesiator = require("./privateSettings/fildifferentsiatorer.json");
         console.log(Object.keys(fildiffernesiator).length);    
         if (typeof fildiffernesiator === "object" && Object.keys(fildiffernesiator).length > 0){
-            res.status(200).send(fildiffernesiator);
+            res.status(200).send(JSON.stringify(fildiffernesiator, undefined, 2));
         } else {
             res.status(500).send();
         }
