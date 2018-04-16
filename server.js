@@ -33,6 +33,7 @@ app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
     const directory = require("./privateSettings/stier.json");
+    const differensiator = require("./privateSettings/fildifferentsiatorer.json");
     let sti = directory.kildesti;
     let TESTsti = "./testfiler";
     console.log("Skal hente filliste");
@@ -43,12 +44,7 @@ app.post("/filliste", (req, res) => {
         });
     }
     filerIdir(resultat => {
-        
-        // let ResultatMedSider = resultat;
 
-        // resultat.forEach(element => {
-        //     ResultatMedSider.push(tellPosterIfil(element));
-        // });
         let ResultatMedSider = {
             "draw" : 1,
             "recordsTotal" : resultat.length,
@@ -60,24 +56,15 @@ app.post("/filliste", (req, res) => {
         for (i=0;i<resultat.length;i++) {
             interntObject.push({
                 "filnavn" : resultat[i],
-                "antallFakturaer" : String(tellPosterIfil(resultat[i]))
+                "antallFakturaer" : String(tellPosterIfil(resultat[i])),
+                "farge" : "rød"
             });
             
         }
         ResultatMedSider.data = interntObject;
-
-        //console.log(ResultatMedSider);
-
-        // let raafilObjekt = {
-        //     userName,
-        //     "data" : resultat
-        // }; //data er filene som listes opp, differensiatorer er metadata (atributter) for filtyper mm.
         
-        //let filObjekt = JSON.stringify(raafilObjekt);
         let filObjekt = JSON.stringify(ResultatMedSider);
-        //console.log(filObjekt);
         res.status(200).send(filObjekt);
-        //res.status(200).send(JSON.stringify(ResultatMedSider));
     });
 });
 
