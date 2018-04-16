@@ -46,11 +46,12 @@ $(document).ready(function() {
     dataType : 'json',
     success: (res) =>{
         return res;
+        console.log("RES ", res);
     }
     });
     
     fildifferentsiatorer.done(()=>{
-        console.log("Differ " + JSON.stringify(fildifferentsiatorer.responseJSON) + " differEND");
+        //console.log("Differ " + JSON.stringify(fildifferentsiatorer.responseJSON) + " differEND");
         //All sortering og manipulering skjer her:
     });
 
@@ -117,7 +118,7 @@ $(document).ready(function() {
                     data : JSON.stringify(valgteElementer),
                     success: (res) =>{
                         console.log("RES :", res);
-                    }
+                        }
                 })
             }
         },{
@@ -135,12 +136,12 @@ $(document).ready(function() {
     $('.display table').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
-            console.log($(this));
+            //console.log($(this));
         }
         else {
             tabell.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
-            console.log($(this));
+            //console.log($(this));
         }
     });
 
@@ -151,7 +152,7 @@ $(document).ready(function() {
             return;
         }
         else {
-        console.log(valgteElementer);
+        //console.log(valgteElementer);
         }
     };
 
@@ -159,7 +160,7 @@ $(document).ready(function() {
     $( "#scanneliste" ).click(function() {
         alert( "Handler for .click() called.");
         var noedata = tabell.rows({selected: true}).data().toArray();  //Innebygd API for håndtering av rows.
-        console.log(JSON.stringify(noedata, undefined, 2));
+        //console.log(JSON.stringify(noedata, undefined, 2));
       });
 
 });

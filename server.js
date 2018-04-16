@@ -33,7 +33,7 @@ app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
     const directory = require("./privateSettings/stier.json");
-    const differensiator = require("./privateSettings/fildifferentsiatorer.json");
+    
     let sti = directory.kildesti;
     let TESTsti = "./testfiler";
     console.log("Skal hente filliste");
@@ -57,33 +57,48 @@ app.post("/filliste", (req, res) => {
             interntObject.push({
                 "filnavn" : resultat[i],
                 "antallFakturaer" : String(tellPosterIfil(resultat[i])),
-                "farge" : "rød"
+                "farge" : String(leggStyleFargeTilFil(resultat[i]))
             });
             
         }
         ResultatMedSider.data = interntObject;
         
         let filObjekt = JSON.stringify(ResultatMedSider);
+        //console.log(filObjekt);
         res.status(200).send(filObjekt);
     });
 });
 
-function tellPosterIfil (fil) {
+function leggStyleFargeTilFil (fil) {
+    let differensiator = require("./privateSettings/fildiffer.json");
+    let farge = "black"; // Setter standardfargen
+    let inkluderer = false;
+    for (var key in differensiator) {
+        if (key != "kommentar"){
+            // console.log(differensiator[key] + "\n");
+            differensiator[key].forEach((e)=>{
+                inkluderer = fil.includes(e);
+            console.log(inkluderer + " | " + key + " | " + e + "| " + fil + "\n");
+            //if fil.includes(string(e)) {
+            //     farge = key;
+            // }
+            });
 
-    // let filerIdir = async (callback) => {
-    //     await fs.readdir(TESTsti, (err, resultat) => {
-    //         callback(resultat);
-    //     });
-    // }
+        }
+
+    }
+    
+    return farge;
+}
+
+function tellPosterIfil (fil) {
 
     let contents = fs.readFileSync("./testfiler/" + fil, 'utf8', (err, content) => {
                         if (err) return err;
                         return content;
                     });
-    //var count = (contents.match(/EHMHSP/g) || []).length;
     let expr = new RegExp(/^..1/, 'mg');
     let count = (contents.match(expr) || []).length;
-    // console.log(count);
     return count;
 }
 
