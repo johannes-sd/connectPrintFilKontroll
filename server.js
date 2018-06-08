@@ -5,7 +5,12 @@ const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const fs = require("fs-extra");
+<<<<<<< HEAD
 //const path = require("path");
+=======
+const path = require("path");
+const moment = require("moment");
+>>>>>>> 0fec3ea83d679ff39fa375f28e91f62eccc2b9bc
 
 
 
@@ -23,6 +28,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(helmet());
 app.use(bodyParser.json({type: 'application/json'}));
 
+const directory = require("./privateSettings/stier.json");
+
+
+
+
 app.get('/', (req, res) => {
     
     res.render('index.hbs',{
@@ -32,7 +42,7 @@ app.get('/', (req, res) => {
 app.post("/filliste", (req, res) => {
     console.log("------");
     console.log(req.body);
-    const directory = require("./privateSettings/stier.json");
+    //const directory = require("./privateSettings/stier.json");
     
     let sti = directory.kildesti;
     let TESTsti = "./testfiler";
@@ -109,6 +119,7 @@ app.get('/test', (req, res) => {
 
 app.post("/printe", (req,res) => {
     let filutvidelse;
+    console.log("/printe route called\n");
     console.log(req.body);
     let mottatt = req.body;
     if(mottatt.direkteprint) { 
@@ -116,9 +127,36 @@ app.post("/printe", (req,res) => {
         } else {
             filutvidelse = `.${mottatt.printer}`;
         }
+    arkiver(mottatt);
     console.log(req.connection.remoteAddress);
     res.status(200).send(JSON.stringify(mottatt));
 });
+
+function arkiver(filesObj) {
+    //Syncrounous archiving of files
+    // 1. sjekk om mappen eksisterer
+    let replymessage = {}
+    let arkivmappe = directory.arkivsti;
+    if (!fs.existsSync(arkivmappe)) {
+        console.log(`Mappen ${arkivmappe} eksisterer ikke, noe er feil i matrixen`);
+        try {
+            fs.mkdirSync(arkivmappe);
+        } catch (error) {
+            return error;
+        }
+    }
+    // Opprett dagens dato-mappe
+    let dagensdato = moment();
+    dagensdato = moment(dagensdato).format("DDMMYYYY");
+    if (!fs.existsSync(arkivmappe + "//" + dagensdato))
+    try {
+        fs.mkdirSync(arkivmappe + "//" + dagensdato);
+    } catch (error) {
+        return error;
+    }
+    //Kopier filer fra objektet
+    
+}
 
 
 
