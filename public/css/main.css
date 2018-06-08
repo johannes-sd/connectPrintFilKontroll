@@ -168,6 +168,20 @@ nav > ul > li > div ul > li:hover > a {
     right: 0;
     top: 0;
 }   
+
+#direkteprint, #direktteprintTekst {
+  position: relative;
+  top: 5px;
+}
+
+@supports (-ms-ime-align:auto) {
+  #direkteprint, #direktteprintTekst {
+    position: relative;
+    top: 0px;
+  }
+}
+
+
 .hodeNav {
   padding : 5px 5px 5px 10px;
 }
@@ -224,8 +238,16 @@ nav > ul > li > div ul > li:hover > a {
   vertical-align: -webkit-baseline-middle;
   vertical-align: text-bottom;
 }
+
+
 #printere {
   vertical-align: -webkit-baseline-middle;
+}
+@supports (-ms-ime-align:auto) {
+  #printere {
+  vertical-align: none;
+  z-index: -5;
+  }
 }
 input[type="radio"] {
   margin-top: -1px;

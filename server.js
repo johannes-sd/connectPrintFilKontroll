@@ -5,7 +5,7 @@ const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const fs = require("fs-extra");
-const path = require("path");
+//const path = require("path");
 
 
 
@@ -70,7 +70,7 @@ app.post("/filliste", (req, res) => {
 });
 
 function leggStyleFargeTilFil (fil) {
-    let differensiator = require("./privateSettings/fildiffer.json");
+    let differensiator = require("./privateSettings/fildifferentsiatorer.json");
     let farge = "black"; // Setter standardfargen
     let inkluderer = false;
     for (var key in differensiator) {

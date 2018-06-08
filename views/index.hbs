@@ -152,7 +152,12 @@ $(document).ready(function() {
             return;
         }
         else {
-        //console.log(valgteElementer);
+        console.log(valgteElementer);
+        let sendFilerTIlDirekteprint = $.post("/printe", valgteElementer);
+        sendFilerTIlDirekteprint.done( (data) => {
+            console.log(data);
+            // oppfriskning av tabell ved suksess i printing og arkivering av filer
+        } );
         }
     };
 
