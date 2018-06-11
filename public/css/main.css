@@ -171,7 +171,10 @@ nav > ul > li > div ul > li:hover > a {
 
 #direkteprint, #direktteprintTekst {
   position: relative;
-  top: 5px;
+  vertical-align: -moz-middle-with-baseline;
+  display: -ms-flexbox;
+  top: auto;
+  bottom: auto;
 }
 
 @supports (-ms-ime-align:auto) {
@@ -241,12 +244,16 @@ nav > ul > li > div ul > li:hover > a {
 
 
 #printere {
-  vertical-align: -webkit-baseline-middle;
+  /*vertical-align: -webkit-baseline-middle;*/
+  top: auto;
+  bottom: auto;
+  vertical-align: -moz-middle-with-baseline;
 }
 @supports (-ms-ime-align:auto) {
   #printere {
   vertical-align: none;
   z-index: -5;
+  height: 100%;
   }
 }
 input[type="radio"] {
