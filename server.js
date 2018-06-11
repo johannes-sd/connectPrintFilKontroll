@@ -5,12 +5,8 @@ const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const fs = require("fs-extra");
-<<<<<<< HEAD
-//const path = require("path");
-=======
 const path = require("path");
 const moment = require("moment");
->>>>>>> 0fec3ea83d679ff39fa375f28e91f62eccc2b9bc
 
 
 
