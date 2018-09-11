@@ -5,12 +5,12 @@ const hbs = require("hbs");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const fs = require("fs-extra");
-<<<<<<< HEAD
+//<<<<<<< HEAD
 const path = require("path");
 const moment = require("moment");
-=======
+//=======
 //const path = require("path");
->>>>>>> 52e9f03c1f99595dcc4942714e38c4f77b103a83
+//>>>>>>> 52e9f03c1f99595dcc4942714e38c4f77b103a83
 
 
 
@@ -45,11 +45,27 @@ app.post("/filliste", (req, res) => {
     
     let filerIdir = async (callback) => {
         await fs.readdir(TESTsti, (err, resultat) => {
-            callback(resultat);
+            if(err) {
+                callback(err); // TODO FIX
+                return;
+            }
+            
+            else {
+                console.log("HALLO!!!");
+                console.log('Før filter\n' + resultat);
+                let filtered = resultat.filter((oneAndoneFile) => {
+                    if (oneAndoneFile.includes(".txt")) return oneAndoneFile;
+                });
+                // resultat = resultat.filter()  FILTER HER! fjern alt som ikke er relevant-
+                resultat = filtered;
+                console.log('Etter filter\n' + resultat);
+                callback(resultat);
+            }
         });
     }
-    filerIdir(resultat => {
 
+    filerIdir(resultat => {
+        // console.log("Callbak: " + resultat);
         let ResultatMedSider = {
             "draw" : 1,
             "recordsTotal" : resultat.length,
@@ -61,8 +77,8 @@ app.post("/filliste", (req, res) => {
         for (i=0;i<resultat.length;i++) {
             interntObject.push({
                 "filnavn" : resultat[i],
-                "antallFakturaer" : String(tellPosterIfil(resultat[i])),
-                "farge" : String(leggStyleFargeTilFil(resultat[i]))
+                "antallFakturaer" : String(tellPosterIfil(resultat[i]))
+                // "farge" : String(leggStyleFargeTilFil(resultat[i]))
             });
             
         }
@@ -74,37 +90,41 @@ app.post("/filliste", (req, res) => {
     });
 });
 
-function leggStyleFargeTilFil (fil) {
-    let differensiator = require("./privateSettings/fildifferentsiatorer.json");
-    let farge = "black"; // Setter standardfargen
-    let inkluderer = false;
-    for (var key in differensiator) {
-        if (key != "kommentar"){
-            // console.log(differensiator[key] + "\n");
-            differensiator[key].forEach((e)=>{
-                inkluderer = fil.includes(e);
-            console.log(inkluderer + " | " + key + " | " + e + "| " + fil + "\n");
-            //if fil.includes(string(e)) {
-            //     farge = key;
-            // }
-            });
+// function leggStyleFargeTilFil (fil) {
+//     let differensiator = require("./privateSettings/fildifferentsiatorer.json");
+//     let farge = "black"; // Setter standardfargen
+//     let inkluderer = false;
+//     for (var key in differensiator) {
+//         if (key != "kommentar"){
+//             // console.log(differensiator[key] + "\n");
+//             differensiator[key].forEach((e)=>{
+//                 inkluderer = fil.includes(e);
+//             console.log(inkluderer + " | " + key + " | " + e + "| " + fil + "\n");
+//             //if fil.includes(string(e)) {
+//             //     farge = key;
+//             // }
+//             });
 
-        }
+//         }
 
-    }
+//     }
     
-    return farge;
-}
+//     return farge;
+// }
+
+
 
 function tellPosterIfil (fil) {
-
-    let contents = fs.readFileSync("./testfiler/" + fil, 'utf8', (err, content) => {
+    console.log("Filnavn inn " + fil);
+    let filen = path.join('testfiler', fil);
+    let contents = fs.readFileSync(filen, 'latin1', (err, content) => {
                         if (err) return err;
                         return content;
                     });
     let expr = new RegExp(/^..1/, 'mg');
-    let count = (contents.match(expr) || []).length;
-    return count;
+    let DS1enere = contents.match(expr) || [];
+    let antall = DS1enere.length;
+    return antall;
 }
 
 
