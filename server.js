@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const hbs = require("hbs");
 const helmet = require("helmet");
@@ -134,19 +132,73 @@ app.get('/test', (req, res) => {
 
 app.post("/printe", (req,res) => {
     let filutvidelse;
-    console.log(req.body);
+    console.log(req.body.filer);
     let mottatt = req.body;
+    //Sette filutvidelse
     if(mottatt.direkteprint) { 
         filutvidelse = ".direkteprint"; 
         } else {
             filutvidelse = `.${mottatt.printer}`;
         }
-    console.log(req.connection.remoteAddress);
+    console.log(`Filutvidelsen er satt til ${filutvidelse}`);
+    let filobjekter = mottatt.filer;
+    let filarray = [];
+    let totalantallTilPrint = 0;
+    filobjekter.forEach(element => {
+        filarray.push(element.filnavn);
+        totalantallTilPrint += parseInt(element.antallFakturaer);
+    });
+    console.log(filarray);
+    console.log(`det ble bedt om ${totalantallTilPrint} sider til utskrift`);
+
+    let stier = require("./privateSettings/stier.json");
+    const kildesti = stier.kildesti;
+    const destFolder = stier.arkivsti;
+    //const testfile = 'BAM_MAIN_3000_20180112_090556_Gravid.txt';
+    const { COPYFILE_FICLONE } = fs.constants;
+    //let sourcefile = path.join(folder,testfile);
+    //let destfile = path.join(destFolder, testfile);
+    mottatt.totaltAntallSider = totalantallTilPrint;
+    filarray.forEach(element => {
+        let sourcefile = path.join(kildesti, element);
+        element = element.replace(".txt", filutvidelse);
+        let destfile = path.join(destFolder, element);
+        filbehandling(sourcefile, destfile);
+    });
+    
     res.status(200).send(JSON.stringify(mottatt));
+
+
+
+
+    async function filbehandling(ACTsourceFile, ACTdestfile) {
+        try {
+          let kildefil = ACTsourceFile; //Vet ikke hvorfor, men den vil ikke ta med seg ACTsourceFile??
+           await fs.copy(kildefil.toString(), ACTdestfile, COPYFILE_FICLONE);
+           kopierTilStreamServeSpool(kildefil);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
+      async function slettfil(ACTfiletoDelete) {
+        try {
+          await fs.remove(ACTfiletoDelete);
+        } catch (error) {
+          console.log(`feil med sletting av ${ACTfiletoDelete} ${error}`);
+        }
+      }
+      
+      async function kopierTilStreamServeSpool(ACTfileToStreamserve) {
+        try {
+          await console.log("Her; Send til streamservespool");
+          slettfil(ACTfileToStreamserve);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      
 });
-
-
-
 
 app.get("/fildifferentsiatorer", (req, res) => {
     //This route passes some private settings to the client.
@@ -159,8 +211,6 @@ app.get("/fildifferentsiatorer", (req, res) => {
         }
     
 });
-
-
 
 app.listen(port, () => {
     console.log(`Serveren startet på port ${port}`);
