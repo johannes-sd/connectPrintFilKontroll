@@ -23,7 +23,7 @@
 
 
     </body>
-    <!--{{> printModalScript}}-->
+    {{!-- {{> printModalScript}} --}}
     <script>
     
  
@@ -95,14 +95,13 @@ $(document).ready(function() {
         buttons: [{
             text: "Print",
             action: (e, dt, node, config) => {
-                //let valgteElementer = tabell.rows({selected: true}).data().toArray();
+                tabell.select.style("api"); //Setter select til kun å kunne gjøres fra API, slik at all serverjobb må være ferdig før nye filer kan velges
                 let valgteElementer = {
                     filer : tabell.rows({selected: true}).data().toArray(),
                     printer : $("select#printere.ui-widget option:selected").text(),
                     direkteprint
                     };
-                
-                console.log(JSON.stringify(valgteElementer, undefined, 2));
+                //console.log(JSON.stringify(valgteElementer, undefined, 2));
                 $.ajax({
                     async : true,
                     "crossDomain": false,
@@ -118,14 +117,16 @@ $(document).ready(function() {
                     data : JSON.stringify(valgteElementer),
                     success: (res) =>{
                         console.log("RES :", res);
-                        }
+                        tabell.rows({selected: true}).remove().draw();
+                        tabell.select.style("os"); //Server har fått sitt og har svart, nå skal vi kunne velge filer igjen.
+                    }
                 })
             }
         },{
             text: "Print scannelister",
             action: (e, dt, node, config) => {
-                //alert("Knappeliknapp er trykket");
-                sendScanneliste();
+                alert("Ikke funskjonell enda");
+                //sendScanneliste();
             }
         }]
     });

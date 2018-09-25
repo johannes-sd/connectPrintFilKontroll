@@ -7,9 +7,10 @@
   box-sizing: border-box;
 }
 body {
-  background-image: : url("/grafikk/konvoluttmaskin.gif");
+  background-image: url("..\\grafikk\\konvoluttmaskin.gif");
   background-color: #EBE8E4;
   background-size: 100%;
+  background-repeat: no-repeat;
   color: #222;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight : 300;
@@ -26,7 +27,7 @@ nav {
   margin-bottom: 10px;
   overflow: hidden;
   width: 100%; 
- 
+  opacity: 0.8;
 }
 
 nav ul {
@@ -172,6 +173,7 @@ nav > ul > li > div ul > li:hover > a {
 #direkteprint, #direktteprintTekst {
   position: relative;
   vertical-align: -moz-middle-with-baseline;
+  vertical-align: -webkit-baseline-middle;
   display: -ms-flexbox;
   top: auto;
   bottom: auto;
@@ -235,6 +237,7 @@ nav > ul > li > div ul > li:hover > a {
       padding: 0%;
       padding-top: 5%;
       border-radius: 4px;
+      opacity: 0.8;
   }
 
 .ui-widget  {
@@ -244,7 +247,8 @@ nav > ul > li > div ul > li:hover > a {
 
 
 #printere {
-  /*vertical-align: -webkit-baseline-middle;*/
+  padding-top: 4px;
+  vertical-align: -webkit-baseline-middle;
   top: auto;
   bottom: auto;
   vertical-align: -moz-middle-with-baseline;
