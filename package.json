@@ -11,6 +11,7 @@
     "fs-extra": "^5.0.0",
     "hbs": "^4.0.1",
     "helmet": "^3.9.0",
+    "lodash": "^4.17.11",
     "moment": "^2.22.1"
   },
   "repository": "https://github.com/johannes-sd/connectPrintFilKontroll.git"

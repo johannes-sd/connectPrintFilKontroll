@@ -1,0 +1,147 @@
+    {{> head}}
+<body>
+    {{> toppmeny}}
+
+        <div id="Velkommen">
+                
+                
+            <table class="display">
+                <thead>
+                    <tr>
+                        <th>
+                            filnavn
+                        </th>
+                        <th>
+                            antallFakturaer
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+    {{> printModal}}
+
+
+    </body>
+    {{!-- {{> printModalScript}} --}}
+    <script>
+    
+ 
+$(document).ready(function() {
+    
+
+
+    $("body").css("-webkit-filter","blur(1px)");
+    var tabell = $('.display').DataTable( {
+        "ajax" : {
+            "url": "/typeinstillinger",
+            "contentType": "application/json",
+            "type": "POST"
+        },
+        "columns" : [{"data" : "filnavn"}, {"data" : "antallFakturaer"}],
+        "filtyper" : [{"differentsiatorer" : null}],
+        "select" : "os"
+    });
+    $("body").css("-webkit-filter","blur(0px)");
+
+
+
+    
+    console.log("option ", $("select#printere.ui-widget option:selected").text());
+    //const printer = $("select#printere.ui-widget option:selected").text();
+    var direkteprint = false;
+
+
+    $("#direkteprint").change( function () {
+        //TODO: sjekke om filtypen er direkteprintvennlig. SÃ¥ gjÃ¸re action om ikke
+        if (this.checked) {
+            direkteprint = true;
+        } else {
+            direkteprint = false;
+        }
+    });
+   
+    new $.fn.dataTable.Buttons( tabell, {
+        name: "commands",
+        buttons: [{
+            text: "Print",
+            action: (e, dt, node, config) => {
+                tabell.select.style("api"); //Setter select til kun å kunne gjøres fra API, slik at all serverjobb må være ferdig før nye filer kan velges
+                let valgteElementer = {
+                    filer : tabell.rows({selected: true}).data().toArray(),
+                    printer : $("select#printere.ui-widget option:selected").text(),
+                    direkteprint
+                    };
+                //console.log(JSON.stringify(valgteElementer, undefined, 2));
+                $.ajax({
+                    async : true,
+                    "crossDomain": false,
+                    url: "/printe",
+                    method: "POST",
+                        "headers": {
+                        "content-type": "application/json",
+                        "cache-control": "no-cache",
+                        "sentraldistribusjon-token": "0e6f12f6-c483-6df3-2d3a-5b6816b30638"
+                      },
+                    processData : false,
+                    dataType : 'json',
+                    data : JSON.stringify(valgteElementer),
+                    success: (res) =>{
+                        console.log("RES :", res);
+                        tabell.rows({selected: true}).remove().draw();
+                        tabell.select.style("os"); //Server har fått sitt og har svart, nå skal vi kunne velge filer igjen.
+                    }
+                })
+            }
+        },{
+            text: "Print scannelister",
+            action: (e, dt, node, config) => {
+                alert("Ikke funskjonell enda");
+                //sendScanneliste();
+            }
+        }]
+    });
+
+    tabell.buttons(0, null).container().appendTo('nav');
+
+    //Markere valgte elementer
+    $('.display table').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+            //console.log($(this));
+        }
+        else {
+            tabell.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            //console.log($(this));
+        }
+    });
+
+    function sendScanneliste() {
+        let valgteElementer = tabell.rows({selected: true}).data().toArray();
+        if(valgteElementer.length === 0) {
+            alert("Du har ikke valgt noen filer fra listen!");
+            return;
+        }
+        else {
+        console.log(valgteElementer);
+        let sendFilerTIlDirekteprint = $.post("/printe", valgteElementer);
+        sendFilerTIlDirekteprint.done( (data) => {
+            console.log(data);
+            // oppfriskning av tabell ved suksess i printing og arkivering av filer
+        } );
+        }
+    };
+
+    //Tester knapp for print.
+    $( "#scanneliste" ).click(function() {
+        alert( "Handler for .click() called.");
+        var noedata = tabell.rows({selected: true}).data().toArray();  //Innebygd API for hÃ¥ndtering av rows.
+        //console.log(JSON.stringify(noedata, undefined, 2));
+      });
+
+});
+    
+    </script>
+    {{> printModalScript}}
+</html>
