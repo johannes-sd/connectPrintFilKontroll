@@ -7,11 +7,13 @@
   box-sizing: border-box;
 }
 body {
-  background-image: url("..\\grafikk\\konvoluttmaskin.gif");
-  background-color: #EBE8E4;
-  background-size: 100%;
+  /* background-image: url("..\\grafikk\\konvoluttmaskin.gif"); */
+  /* background-image:  url("..\\grafikk\\pakking-nattmannens-datter-013.jpg"); */
+  
+  background-color: whitesmoke;
+  /* background-size: 100%; */
   background-repeat: no-repeat;
-  color: #222;
+  color: black;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight : 300;
   font-size : 15px;
