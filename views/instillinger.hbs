@@ -30,16 +30,15 @@
 $(document).ready(function() {
     
 
-
     $("body").css("-webkit-filter","blur(1px)");
     var tabell = $('.display').DataTable( {
         "ajax" : {
-            "url": "/typeinstillinger",
-            "contentType": "application/json",
-            "type": "POST"
+        "url": "/instillingerFiler",
+        "contentType": "application/json",
+        "type": "GET"
         },
-        "columns" : [{"data" : "filnavn"}, {"data" : "antallFakturaer"}],
-        "filtyper" : [{"differentsiatorer" : null}],
+        "columns" : [{"data" : "differentsiatorer"}, {"data" : "filtyper"}],
+        
         "select" : "os"
     });
     $("body").css("-webkit-filter","blur(0px)");
