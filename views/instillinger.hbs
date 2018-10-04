@@ -37,8 +37,11 @@ $(document).ready(function() {
         "contentType": "application/json",
         "type": "GET"
         },
-        "columns" : [{"data" : "differentsiatorer"}, {"data" : "filtyper"}],
-        
+        //"columns" : [{"data":"differentsiatorer.filtyper[0]"}],
+        "columns" : () => {
+            console.log( [ {"data":"differentsiatorer"} ] );
+            return ([{"data":"differentsiatorer"}]);
+        },
         "select" : "os"
     });
     $("body").css("-webkit-filter","blur(0px)");

@@ -35,10 +35,11 @@ app.get("/instillingerFiler", (reg, res) => {
     try {
         let fildata = require("C:\\Users\\johannes.SD\\node\\connectPrintFilKontroll\\privateSettings\\fildifferentsiatorer.json");
         console.log("lastet fildata og sendte");
+        console.log(fildata);
         res.status(200).send(fildata);
     } catch (error) {
         let fildata = {"data" : "fant ingen"}
-        res.status(500).send(JSON.parse(fildata));
+        res.status(500).send(JSON.encode(fildata));
     }
 });
 
